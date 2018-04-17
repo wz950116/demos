@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='./d3.min.js' charset="utf-8"></script>
+		<!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+		<style>
+			.state {
+				fill: red;
+				stroke: #a9a9a9;
+				stroke-width: 1;
+			}
+			.state:hover{
+				fill-opacity:0.5;
+			}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script>
+		// var dataset = [30, 20, 52, 2, 11];
+		// var result = d3.max(dataset);
+
+		// var dataset = [
+		// 	[30, 20],
+		// 	[52, 2],
+		// 	[11, 90]
+		// ];
+		// var result = d3.max(dataset, d => {
+		// 	var i = d3.max(d);
+		// 	return i;
+		// });
+		// console.log(result);  // 90
+
+
+		var scale = d3.scale.linear();
+		scale.domain([0, 20]).range([0, 100]);
+		var result = scale(10);
+		console.log(result);
+	</script>
+</html>

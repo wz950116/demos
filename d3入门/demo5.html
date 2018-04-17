@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='./d3.min.js' charset="utf-8"></script>
+		<!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+		<style>
+			.axis path,
+			.axis line {
+			    fill: none;
+			    stroke: black;
+			    shape-rendering: crispEdges;
+			}
+
+			.axis text {
+			    font-family: sans-serif;
+			    font-size: 11px;
+			} 
+		</style>
+	</head>
+	<body>
+	</body>
+	<script>
+		var dataset = [30, 20, 45, 12, 21];
+
+		var svg = d3.select('body').append('svg').attr('width', 600).attr('height', 600);
+
+		var xScale = d3.scale.linear()
+			.domain([0, d3.max(dataset)])
+			.range([0, 500]);
+
+		var axis = d3.svg.axis()  // 生成一个坐标轴的函数
+			.scale(xScale)  // 指定坐标轴的 scale （比例）
+			.orient("bottom");  // 指定坐标轴的分割点和数字的朝向
+
+		svg.append("g")
+			.attr("class", "axis")
+			.attr("transform", "translate(10,160)")
+			.call(axis);
+
+		svg.selectAll('rect')
+			.data(dataset)
+			.enter()
+			.append('rect')
+			.attr('x', 10)
+			.attr('y', function (d, i) {
+				return i * 30;
+			})
+			.attr('width', xScale)
+			.attr('height', 28)
+			.attr('fill', 'red');
+	</script>
+</html>

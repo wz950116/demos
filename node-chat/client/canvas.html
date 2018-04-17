@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="email=no" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <title>多人聊天室</title>
+        <!--[if lt IE 8]><script src="./json3.min.js"></script><![endif]-->
+        <script src="http://realtime.plhwin.com/socket.io/socket.io.js"></script>
+        <style type="text/css" media="screen">
+        canvas {
+            box-shadow: 5px 5px 20px black;
+            border: 1px solid #a69d9d;
+        }
+        </style>
+    </head>
+
+    <body>
+        <canvas width=500 height=500></canvas>
+        <button type="">开始绘画</button>
+    </body>
+    <script type="text/javascript">
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.strokeStyle = "#009933";
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        var socket = io.connect('ws://10.0.153.252:3000');
+        socket.on('message', function(obj) {
+            console.log("===========")
+            ctx.lineTo(obj.x, obj.y);
+            ctx.stroke();
+        });
+        document.querySelector("button").onclick = function() {
+            ctx.beginPath();
+            canvas.onmousemove = function(e) {
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.stroke();
+                socket.emit('message', {
+                    x: e.clientX,
+                    y: e.clientY
+                })
+            }
+        }
+    </script>
+
+</html>

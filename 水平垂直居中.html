@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>水平垂直居中</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+
+			div {
+				width: 100%;
+				height: 100%;
+				background: red;
+				font-size: 50px;
+			}
+
+			div.demo1 {
+				display:-webkit-box;
+			    display: -moz-box;
+			    display: -ms-flexbox;
+			    display: -webkit-flex;
+			    display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			div.demo2 {
+				text-align: center;
+			}
+
+			div.demo3 {
+				text-align: center;
+			}
+			div.demo3::before {
+				display: inline-block;
+				content: '';
+				vertical-align:middle;
+				width: 0;
+				height: 100%;   
+			}
+
+			div.demo4 {
+				position: relative;
+			}
+			div.demo4 span {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			#wrapper {
+			    display: table;
+			    background: #000;
+			}
+
+			#cell {
+			    display: table-cell;
+			    vertical-align: middle;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- flex布局 -->
+		<!-- <div class='demo1'>123</div> -->
+		
+		<!-- js控制 -->
+		<!-- <div class='demo2'>123</div> -->
+		
+		<!-- 伪元素 -->
+		<!-- <div class="demo3">123</div> -->
+		
+		<!-- 定位 -->
+		<!-- <div class='demo4'>
+			<span>123</span>
+		</div> -->
+
+		<!-- table布局 -->
+		<!-- <div id="wrapper">
+		    <div id="cell">
+		        <p>测试垂直居中效果测试垂直居中效果</p>
+		        <p>测试垂直居中效果测试垂直居中效果</p>
+		    </div>
+		</div> -->
+
+	</body>
+
+	<script>
+		// document.querySelector('.demo2').style['line-height'] = document.body.offsetHeight + 'px';
+	</script>
+</html>

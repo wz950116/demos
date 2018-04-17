@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			html, body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			div {
+				width: 100%;
+				height: 100%;
+				font-size: 100px;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			div.one {
+				background: yellow;
+			}
+
+			div.two {
+				background: green;
+			}
+
+			div.three {
+				background: blue;
+			}
+
+			.animate {
+				transition: .6s all;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='one'>1</div>
+		<div class='two'>2</div>
+		<div class='three'>3</div>
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.min.js"></script>
+	<script>
+		$(function ($) {
+    		location.href = 'http://common-ldap.focus-dev.cn/tologin?ru=http://dev.focus-dev.cn/ecology-ad-admin/#/city';
+			// $('div').css('line-height', $('div').height() + 'px');
+
+			var initH = 0, divH = $('div').height(), startTop = 0;
+			$('div').on('touchstart', function (event) {
+				$('div').removeClass('animate');
+				// event.changedTouches[0].clientX 原生
+				startTop = event.originalEvent.changedTouches[0].clientY;
+
+				$('div').on('touchmove', function (event) {
+					var moveTop = event.originalEvent.changedTouches[0].clientY;
+					var H = moveTop - startTop;
+					$('div').css({
+						'transform': 'translateY(' + ( H + initH * divH ) + 'px)'
+					});
+				});
+			});
+			$('div').on('touchend', function (event) {
+				var endTop = event.originalEvent.changedTouches[0].clientY;
+				var H = endTop - startTop;
+				if (Math.abs(H) > 600) {
+					if (H > 0 && initH < 0) {
+						initH++;
+					} else if (H < 0 && initH > -2) {
+						initH--; 
+					}
+					$('div').addClass('animate').css({
+						'transform': 'translateY(' + (initH * 100) + '%)'
+					});
+				} else {
+					$('div').css({
+						'transform': 'translateY(' + (initH * 100) + '%)'
+					});
+				}
+			});
+		})
+	</script>
+</html>
