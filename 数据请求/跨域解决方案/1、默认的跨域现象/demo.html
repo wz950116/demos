@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>默认的跨域现象</title>
+</head>
+
+<body>
+    <button>获取数据</button>
+</body>
+<script type="text/javascript" src="../3、jQuery使用JSONP/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+$("button").click(function() {
+    //测试此页面时，使用localhost访问本页
+    //将下面URL里的IP地址改为你电脑的IP  路径改为你自己的路径
+    $.ajax({
+        url: "http://127.0.0.1/1616/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/1%E3%80%81%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B7%A8%E5%9F%9F%E7%8E%B0%E8%B1%A1/data.php",
+        data: {
+            user: "admin",
+            pass: 123
+        },
+        success: function(res) {
+            console.log(res)
+        }
+    })
+
+
+
+})
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.1.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+			type:"post",
+			async:"true",
+			url:"http://bang.360.cn/aj/get_area/?citycode=shang_hai",
+			dataType:"jsonp",
+			// jsonp:"callback",
+			// jasonpCallback:"callback",  可省略
+			success:function(data){
+				console.log(data.result);
+				for(var i in data.result){
+					document.write(i+" "+data.result[i]+"<br />");
+				}
+			},
+			error:function(){
+				console.log("出错");
+			}
+		})
+	</script>
+</html>

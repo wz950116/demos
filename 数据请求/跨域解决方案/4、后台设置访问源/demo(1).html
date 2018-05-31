@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>后台设置访问源解决跨域</title>
+</head>
+
+<body>
+    <button>请求数据</button>
+</body>
+<script type="text/javascript">
+var btn = document.querySelector("button");
+//通过后台设置允许访问源是比较方便但安全性有问题的方法
+//只需要在后台例如PHP中加入一句代码即可：
+//header('Access-Control-Allow-Origin: *');
+//可对比 此php 与 原生Ajax使用JSONP中的php的区别
+btn.onclick = function() {
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert("浏览器不支持Ajax，请更换浏览器");
+        return;
+    };
+    xmlhttp.open("get", "http://10.0.164.235/cross/4-php/jsonp.php?user=admin&pass=123", false);
+    xmlhttp.send(null);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                var res = xmlhttp.responseXML || xmlhttp.responseText;
+                res = JSON.parse(res)
+                console.log(res)
+            }
+        }
+    }
+}
+</script>
+
+</html>

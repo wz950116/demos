@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery使用JSONP</title>
+</head>
+
+<body>
+    <button>获取数据</button>
+</body>
+<script type="text/javascript" src="jquery-1.11.1.js"></script>
+<script type="text/javascript">
+$("button").click(function() {
+    /*
+    第一种情况：
+    只指定dataType为jsonp
+    jquery会自动在请求链接中 补上  url?callback=？
+    ？是jQuery自动生成的回调函数名
+    其实就会回调到success函数上
+    与原生Ajax使用JSONP中的对比
+    原生： url?callback=fun
+    jquery: url?callback=success
+    */
+
+    //第一种情况代码
+    //   $.ajax({
+    //     url : "http://10.0.153.221/domain/jquery/jsonp_default.php",
+    //     dataType : "jsonp",
+    //     data : {
+    //         user : "admin",
+    //         pass : 123
+    //     },
+    //     success : function(res){
+    //         console.log(res)
+    //     }
+    // })
+    //
+    /**
+     * 第二种情况：
+     * 指定jsonp参数
+     * 请求地址中会将默认的callback改为指定的值
+     * 例如：默认情况为 url?callback=?
+     * 指定jsonp : myCallback后 将变为 url?myCallback=?
+     * 此时要求  后台语言接受的参数从原来的callback变为myCallback
+     */
+    //第二种情况代码：
+    // $.ajax({
+    //     url : "http://10.0.153.221/domain/jquery/jsonp_myCallback.php",
+    //     dataType : "jsonp",
+    //     jsonp : "myCallback",
+    //     data : {
+    //         user : "admin",
+    //         pass : 123
+    //     },
+    //     success : function(res){
+    //         console.log(res)
+    //     }
+    // })
+
+    /**
+     * 第三种情况：
+     * 指定jsonpCallback
+     * 指定jsonpCallback后，jquery将使用指定的函数来执行回调
+     * (原success依然会被执行，所以不建议混用)
+     * (务必将jsonpCallback指定的函数名放到全局范围下)
+     * (jsonpCallback 与 jsonp 两个参数不是必须一起使用，两个配置指定了不同的内容)
+     */
+    $.ajax({
+        url: "http://10.0.164.235/cross/3-jquery/jsonp_jsonp.php",
+        dataType: "jsonp",
+        jsonp: "myCallback",
+        jsonpCallback: "test",
+        data: {
+            user: "admin",
+            pass: 123
+        },
+        success: function(res) {
+            // console.log("success输出："+res)
+        }
+
+    })
+
+})
+
+function test(res) {
+    console.log("jsonpCallback输出："+ res)
+}
+</script>
+
+</html>

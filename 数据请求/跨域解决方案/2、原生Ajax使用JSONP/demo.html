@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>原生Ajax使用JSONP</title>
+</head>
+
+<body>
+    <button>请求数据</button>
+    <form action="a.html" name="myForm">
+        <button type="button">提交</button>
+    </form>
+</body>
+<script type="text/javascript">
+    document.querySelector("button").onclick=function(){
+        alert();
+        document.forms["myForm"].submit;
+    }
+var btn = document.querySelector("button");
+//Ajax与JSONP没有任何关系
+//但不成文的说法都叫做原生Ajax使用JSONP
+//JSONP 一种被创造出来的数据交换方法
+//利用script标签的src属性没有跨域限制的特点
+
+//在使用JSONP时，要求前端与后台必须统一回调函数名称
+//例如在前端传送到后台 参数为：?a=b&c=d&callback=fun  后台必须解析参数名为callback的值
+//并且输出fun(...)
+//前端也必须构建一个函数名为 function fun(...){...}的函数 用于响应后台的输出
+btn.onclick = function() {
+    var url = "http://10.0.164.235/cross/2-ajax/jsonp.php?user=admin&pass=123&callback=myFun";
+}
+function getJsonp(url){
+    var script = document.createElement("script");
+    script.setAttribute("src", url);
+    document.getElementsByTagName("head")[0].appendChild(script);
+    document.getElementsByTagName("head")[0].removeChild(script);
+}
+function myFun(res) {
+    console.log("回调函数被调用了");
+    console.log(res);
+}
+</script>
+
+</html>

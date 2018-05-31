@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery使用JSONP</title>
+</head>
+
+<body>
+    <button>获取数据</button>
+</body>
+<script type="text/javascript" src="jquery-1.11.1.js"></script>
+<script type="text/javascript">
+$("button").click(function() {
+    $.ajax({
+        url: "proxy.php",
+        data: {
+            url: "http://10.0.164.235/cross/1-default/data.php",
+            data: "user=admin&pass=123"
+        },
+        success: function(res) {
+            console.log(res)
+        }
+    })
+})
+</script>
+
+</html>

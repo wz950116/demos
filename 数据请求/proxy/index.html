@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js">></script>
+	</head>
+	<body>
+		<div class="box"></div>
+	</body>
+	<script>
+		$.ajax({
+			url: "/proxy",
+			data: {
+				proxyUrl:"http://api.maoyan.com/mmdb/movieboard/fixedboard/6.json"
+			},
+			success: function(res){
+				document.write(res);
+			}
+		})
+	</script>
+</html>

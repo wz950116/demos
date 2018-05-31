@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<title>JSONP</title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		//1、创建script标签
+		var script = document.createElement("script");
+		//2、回调函数
+		function callBack(data){
+			//把JS对象转换成JSON字符串
+			document.getElementById("box").innerHTML = JSON.stringify(data);
+		}
+		//3、通过src跨域请求
+		script.src = "http://bang.360.cn/aj/get_area/?citycode=shang_hai&callback=callBack";
+		//4、添加 支持ie8以上
+		document.head.appendChild(script);
+	</script>
+</html>

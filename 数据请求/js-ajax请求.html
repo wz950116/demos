@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	</head>
+	<body>
+		<div id='test'></div>
+	</body>
+
+	<script>
+		/*
+			封装ajax请求通用函数
+			@param:method  post/get
+			@param:url  请求地址
+			@param:isAsy  true/false 异步/同步
+			@param:data  请求的数据
+			@param:callback  回调函数接收数据使用
+		*/
+		function ajaxRequest(method, url, isAsy, data, callback) {
+			//创建一个通信对象
+			var xhr = new XMLHttpRequest() ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttpRequest");
+			//监听通信对象的readyState变化
+			xhr.onreadystatechange = function() {
+				//判断通信状态码
+				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+					//判断readyState值
+					if (xhr.readyState == 4) {
+						//把JSON字符串转换成js对象输出
+						callback(JSON.parse(xhr.responseText));
+						//也可以eval("("+xhr.responseText+")") 但不推荐使用(不检查语法错误)
+					}
+				}
+			}
+
+			//判断请求方式
+			if (method.toLowerCase() == "get") {
+				//把请求的js对象拼接到url后面
+				url += "?";
+				for (var i in data) {
+					url += i + "=" + data[i] + "&";
+				}
+				//url是字符串，用slice(substr)方法截掉最后一个&
+				url = url.slice(0, url.length - 1);
+				data = null;
+			} else {
+				// 把js中的对象转换成JSON字符串
+				data = JSON.stringify(data);
+			}
+
+			// 设置头
+			// xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+			// xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+			// 初始化通信对象
+			xhr.open(method, url, isAsy);
+
+			// 发送数据
+			xhr.send(data);
+		}
+		//传入实参调用
+		ajaxRequest("get", "data/test.json", true, {}, function(data) {
+			for (var i in data) {
+				document.getElementById("test").innerHTML += i + " " + data[i] + "<br/>";
+			}
+		})
+	</script>
+</html>

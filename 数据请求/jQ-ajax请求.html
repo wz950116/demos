@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<p></p>
+	</body>
+	<script type="text/javascript" src="./js/jquery-1.8.1.js"></script>
+	<script type="text/javascript">
+		//jquery ajax请求
+		$.ajax({
+			url: "./data/test.json",
+			type: "get",
+			async: "true",
+			data: {},
+			dataType: "json",
+			//发送前
+			beforeSend: function(xhr) {
+				//取消发送
+				// xhr.abort();
+			},
+			//请求成功
+			success: function(data, textStatus, jqHRX) {
+				console.log(data);
+			},
+			//请求报错
+			error: function(e) {
+				console.log(e);
+			},
+			//请求完成
+			complete: function() {
+				console.log('complete');
+			}
+		}).done(function(res) {
+			console.log(res, 111);
+		}).fail(function(e) {
+			console.log(e, 222);
+		}).always(function() {
+			console.log('complete');
+		});
+	</script>
+</html>
