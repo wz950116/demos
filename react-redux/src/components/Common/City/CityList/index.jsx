@@ -20,8 +20,10 @@ class CityList extends React.Component {
         if (!this.state.initDone && newProps.showSelectCity) {
             const result = getAddressListData();
             result.then((res) => {
+                console.log(res);
                 return res.json();
             }).then((data) => {
+                console.log(data);
                 if (data && data.length > 0) {
                     this.setState({
                         initDone: true,
