@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink as Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import action from '../../Action/Index';
@@ -42,6 +43,12 @@ const Main = (mySetting) => {
     class Index extends Component {
         constructor(props) {
             super(props);
+
+            /**
+             * 初始化状态
+             * 
+             * @param {Object} props
+             */
             this.initState = (props) => {
                 var {state, location} = props;
                 var {pathname, search} = location;
@@ -60,6 +67,7 @@ const Main = (mySetting) => {
                     this.state.path = this.path;
                     this.action = false;
                 }
+
             }
 
             /**
@@ -163,7 +171,6 @@ const Main = (mySetting) => {
 
             this.initState(this.props);
         }
-
         render() {
             var {loadAnimation, loadMsg} = this.state;
             return (
@@ -210,13 +217,12 @@ const Main = (mySetting) => {
         componentWillUnmount() {
             this.unmount(); //地址栏已经发生改变，做一些卸载前的处理
         }
-    }
 
-    // props: setting、state、User、signinSuccess、signin、setState、router自带属性
+    }
     Index.defaultProps = { setting }
-    return connect((state) => {
-        return { state: state[setting.id], User: state.User } 
-    }, action(action.id))(Index); //连接redux
+
+    return connect((state) => { return { state: state[setting.id], User: state.User } }, action(action.id))(Index); //连接redux
 }
+
 
 export default Main;

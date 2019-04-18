@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+// import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 import {NavLink as Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import action from '../Action/Index';
 import { Tool, merged } from '../Tool';
 import { DataLoad, Footer, UserHeadImg, TabIcon, GetNextPage } from './common/index';
 import queryString from 'query-string';

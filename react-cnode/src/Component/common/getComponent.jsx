@@ -24,6 +24,7 @@ class Bundle extends Component {
 		})
 		props.load().then((mod) => {
 			this.setState({
+				// handle both es imports and cjs
 				mod: mod ? mod.default : mod
 			})
 		}).catch(err => console.log('Failed to load module', err));

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-// 在react-router4 开始,所有的router组件均是从react-router-dom中导入
-// Router被拆分成了StaticRouter、MemoryRouter、BrowserRouter、HashRouter、NativeRouter
 import { BrowserRouter, HashRouter, Switch, Route, Redirect} from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const history = createBrowserHistory();
+
 
 import IndexList from '../Component/IndexList'; //首页组件
+// import Topic from '../Component/Topic'; //主题详情
+// import TopicCreate from '../Component/TopicCreate'; //发布主题
+// import MyMessages from '../Component/MyMessages'; //我的消息
+// import UserView from '../Component/UserView'; //我的个人中心
+// import Signin from '../Component/Signin'; //登录
+// import Signout from '../Component/Signout'; //退出
 import getComponent from '../Component/common/getComponent';
-
 const routes = [
 	{ path: '/',
 		exact: true,
@@ -36,19 +43,26 @@ const routes = [
 		component: (props) => getComponent(props, () => import('../Component/Signout'))
 	}
 ];
-
+/**
+ * (路由根目录组件，显示当前符合条件的组件)
+ * 
+ * @class Roots
+ * @extends {Component}
+ */
 class Roots extends Component {
     render() {
         return (
             <div>{this.props.children}</div>
         );
     }
-
 }
-let Routers = process.env.NODE_ENV !== 'production' ? BrowserRouter : HashRouter;
+// var history = process.env.NODE_ENV !== 'production' ? browserHistory : hashHistory;
+const supportsHistory = 'pushState' in window.history;
+let Router = process.env.NODE_ENV !== 'production' ? BrowserRouter : HashRouter;
 const RouteConfig = (
-    <Routers>
+    <Router  history={history}>
 	    <Switch>
+	      {/*<Route path="/" exact component={IndexList} />*/}
 		    {routes.map((route, index) => (
 			    <Route
 				    key={index}
@@ -57,9 +71,15 @@ const RouteConfig = (
 				    component={route.component}
 			    />
 		    ))}
+		    {/*<Route path="/topic/create" component={TopicCreate} />*/}
+		    {/*<Route path="/topic/:id" component={Topic} />*/}
+		    {/*<Route path="/my/messages" component={MyMessages} />*/}
+		    {/*<Route path="/user/:loginname" component={UserView} />*/}
+		    {/*<Route path="/signin" component={Signin} />*/}
+		    {/*<Route path="/signout" component={Signout} />*/}
 		    <Redirect from='' to="/" />
 	    </Switch>
-    </Routers>
+    </Router>
 );
 
 export default RouteConfig;
